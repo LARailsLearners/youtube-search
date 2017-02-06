@@ -46,6 +46,7 @@ module YouTube
   private
 
     def search_response
+      raise "API key missing!" unless params[:key]
       @result = self.class.get(path, query: params)
     end
 
