@@ -23,22 +23,19 @@ API_KEY needed.
 Include a .env file in the root of the project directory and add your YouTube API Key in plain text aka without "", '', or backticks
 
 
-## IN DEVELOPMENT ENVIRONMENT use dotenv-rails gem or 
-explicitly define api key argument for initialization and read from file
+## Initialization
 
 ```rb
-@api_key = ''
-File.open(".env", "r") do |f|
-  f.each_line do |line|
-    @api_key = line
-  end
+@api_key = ENV["API_KEY"] ||= ''
+if @api_key.length < 1
+    File.open(".env", "r") do |f|
+      f.each_line do |line|
+        @api_key = line
+      end
+    end
 end
-```
 
-TODO: Describe how to get a YouTube API key.
-
-```rb
-search = YouTube::Search.new(ENV["API_KEY"])
+search = YouTube::Search.new(@api_key)
 search.first_page!
 
 search.get_search_items("penguins").first.title
