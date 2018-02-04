@@ -26,7 +26,7 @@ Include a .env file in the root of the project directory and add your YouTube AP
 ## Initialization
 
 ```rb
-@api_key = ENV["API_KEY"] ||= ''
+@api_key = ENV["YOUTUBE_API_KEY"] ||= ''
 if @api_key.length < 1
     File.open(".env", "r") do |f|
       f.each_line do |line|
