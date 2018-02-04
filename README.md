@@ -20,6 +20,8 @@ And then execute:
 
 API_KEY needed.
 
+Include a .env file in the root of the project directory and add your YouTube API Key in plain text aka without "", '', or backticks
+
 TODO: Describe how to get a YouTube API key.
 
 ```rb
