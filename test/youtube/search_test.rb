@@ -16,4 +16,10 @@ class YouTube::SearchTest < Minitest::Test
     assert_match /penguin/i, result.first.title
     assert_includes result.first.description.downcase, 'penguin'
   end
+
+  def test_api_key_error
+    assert_raises ArgumentError do
+      YouTube::Search.new()
+    end
+  end
 end
