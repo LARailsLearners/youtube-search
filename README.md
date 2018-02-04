@@ -20,13 +20,25 @@ And then execute:
 
 API_KEY needed.
 
-TODO: Describe how to get a YouTube API key.
+Include a .env file in the root of the project directory and add your YouTube API Key in plain text aka without "", '', or backticks
+
+
+## Initialization
 
 ```rb
-search = YouTube::Search.new("penguin")
+@api_key = ENV["YOUTUBE_API_KEY"] ||= ''
+if @api_key.length < 1
+    File.open(".env", "r") do |f|
+      f.each_line do |line|
+        @api_key = line
+      end
+    end
+end
+
+search = YouTube::Search.new(@api_key)
 search.first_page!
 
-search.get_search_items.first.title
+search.get_search_items("penguins").first.title
 # => "Crazy penguin HD"
 ```
 

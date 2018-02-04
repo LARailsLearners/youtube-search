@@ -1,18 +1,25 @@
 require 'test_helper'
 
 class YouTube::SearchTest < Minitest::Test
-  def test_that_it_has_a_version_number
-    refute_nil ::YouTube::Search::VERSION
-  end
+  def test_search_method
+    @api_key = ''
+    File.open(".env", "r") do |f|
+      f.each_line do |line|
+        @api_key = line
+      end
+    end
 
-  def test_it_does_something_useful
-    refute_nil ENV["API_KEY"], "we need API_KEY env variable"
-
-    search = YouTube::Search.new("penguin")
+    search = YouTube::Search.new(@api_key)
     search.first_page!
 
-    result = search.get_search_items
+    result = search.get_search_items("penguin")
     assert_match /penguin/i, result.first.title
     assert_includes result.first.description.downcase, 'penguin'
+  end
+
+  def test_api_key_error
+    assert_raises ArgumentError do
+      YouTube::Search.new()
+    end
   end
 end
